@@ -16,9 +16,12 @@ require (
 )
 
 require (
+	github.com/KenmyZhang/aliyun-communicate v0.0.0-20180308134849-7997edc57454 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
+	github.com/google/uuid v1.1.2 // indirect
+	github.com/pborman/uuid v1.2.1 // indirect
 	golang.org/x/image v0.0.0-20190802002840-cff245a6509b // indirect
 )
 
