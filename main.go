@@ -6,6 +6,7 @@ import (
 	"gohub/bootstrap"
 	btsConfig "gohub/config"
 	"gohub/pkg/config"
+	"gohub/pkg/verifycode"
 
 	"github.com/gin-gonic/gin"
 )
@@ -41,6 +42,7 @@ func main() {
 	// 初始化路由绑定
 	bootstrap.SetupRoute(router)
 
+	verifycode.NewVerifyCode().SendSMS("你的手机号")
 	// 运行服务
 	err := router.Run(":" + config.Get("app.port"))
 	if err != nil {
