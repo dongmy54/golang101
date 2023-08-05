@@ -2,6 +2,7 @@ package auth
 
 import (
 	v1 "gohub/app/http/controllers/api/v1"
+	"gohub/app/models/user"
 	"gohub/app/requests"
 	"gohub/pkg/captcha"
 	"gohub/pkg/logger"
@@ -61,5 +62,31 @@ func (vc *VerifyCodeController) SendUsingEmail(c *gin.Context) {
 		response.Abort500(c, "发送 Email 验证码失败~")
 	} else {
 		response.Success(c)
+	}
+}
+
+// SignupUsingPhone 使用手机和验证码进行注册
+func (sc *SignupController) SignupUsingPhone(c *gin.Context) {
+
+	// 1. 验证表单
+	request := requests.SignupUsingPhoneRequest{}
+	if ok := requests.Validate(c, &request, requests.SignupUsingPhone); !ok {
+		return
+	}
+
+	// 2. 验证成功，创建数据
+	_user := user.User{
+		Name:     request.Name,
+		Phone:    request.Phone,
+		Password: request.Password,
+	}
+	_user.Create()
+
+	if _user.ID > 0 {
+		response.CreatedJSON(c, gin.H{
+			"data": _user,
+		})
+	} else {
+		response.Abort500(c, "创建用户失败，请稍后尝试~")
 	}
 }
