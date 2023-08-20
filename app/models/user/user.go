@@ -2,6 +2,7 @@
 package user
 
 import (
+	"fmt"
 	"gohub/app/models"
 	"gohub/pkg/database"
 	"gohub/pkg/hash"
@@ -11,7 +12,12 @@ import (
 type User struct {
 	models.BaseModel
 
-	Name     string `json:"name,omitempty"`
+	Name string `json:"name,omitempty"`
+
+	City         string `json:"city,omitempty"`
+	Introduction string `json:"introduction,omitempty"`
+	Avatar       string `json:"avatar,omitempty"`
+
 	Email    string `json:"-"`
 	Phone    string `json:"-"`
 	Password string `json:"-"`
@@ -31,5 +37,6 @@ func (userModel *User) ComparePassword(_password string) bool {
 
 func (userModel *User) Save() (rowsAffected int64) {
 	result := database.DB.Save(&userModel)
+	fmt.Println(result)
 	return result.RowsAffected
 }
